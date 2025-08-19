@@ -19,7 +19,7 @@ Inicialmente o projeto foi criado para atender um hotel no qual eu trabalhava, p
   
 ## 🔮 Próximos Passos e Melhorias Futuras
 
-Embora o projeto seja totalmente funcional em seu estado atual, algumas melhorias futuras poderiam ser implementadas para torná-lo ainda mais robusto:
+Embora o projeto seja totalmente funcional em seu estado atual, algumas melhorias estão sendo implementadas para torná-lo ainda mais robusto no futuro:
 
 * **Implementação de Tema Escuro (Dark Mode):** Adicionar um tema alternativo para melhorar a usabilidade em ambientes com pouca luz.
 * **Validação de Contatos com Selenium:** Desenvolver um módulo que utiliza Selenium para verificar a validade de números de WhatsApp antes do envio, aumentando a taxa de sucesso.
@@ -49,6 +49,7 @@ Embora o projeto seja totalmente funcional em seu estado atual, algumas melhoria
 * Manipulação e filtragem de dados de forma eficiente utilizando Pandas.
 * A importância de desacoplar a lógica da aplicação da sua fonte de dados.
 * Implementação de multithreading para executar tarefas longas sem impactar a experiência do usuário.
+
 
 
 
