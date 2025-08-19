@@ -24,7 +24,9 @@ Inicialmente o projeto foi criado para atender um hotel no qual eu trabalhava, p
 * **Configurações no geral** Apesar da tela de configurações ser funcional, as configurações feitas nela não fazem efeito no programa em si.
 * **Iniciar envio por barra de tarefas** Apesar de haver a opção o programa só irá crashar.
 * **Modo VIP** Inicialmente com a intenção de ser uma forma de diferenciar hóspedes habitues, o mesmo não se encontra finalizado nessa versão.
-
+* **ChatBot** Apesar de funcional, seu uso é extremamente limitado, a intenção inicial era integra-lo com o ChatGPT
+* **Selenium** Por conta de regras do whatsapp e possibilidade de ban por spam, foi feita uma versão inicial com o Selenium em que fazia checagem se o número do whatsapp era válido e se havia foto de perfil, antes de realizar o envio da mensagem. Quando saí do hotel estava desenvolvendo essa versão, o que causou meu desinteresse em sua continuação.
+ 
 ## 🛠️ Tecnologias Utilizadas
 
 * **Linguagem:** Python
@@ -47,6 +49,7 @@ Inicialmente o projeto foi criado para atender um hotel no qual eu trabalhava, p
 * Manipulação e filtragem de dados de forma eficiente utilizando Pandas.
 * A importância de desacoplar a lógica da aplicação da sua fonte de dados.
 * Implementação de multithreading para executar tarefas longas sem impactar a experiência do usuário.
+
 
 
 
