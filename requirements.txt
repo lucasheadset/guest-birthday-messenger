@@ -1,0 +1,7 @@
+pandas
+Pillow
+plyer
+PyMuPDF
+pystray
+pywhatkit
+tkcalendar
