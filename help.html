@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajuda do Bot</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, #004d00, #66ff66);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .chat-window {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 400px;
+            animation: fadeIn 1s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-window h1 {
+            margin-top: 0;
+            color: #333;
+            font-size: 24px;
+            animation: slideDown 0.5s ease-in-out;
+        }
+
+        .chat-window p {
+            color: #666;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .chat-content {
+            flex: 1;
+            overflow-y: auto;
+            margin-top: 20px;
+            padding-right: 10px;
+            max-height: 300px;
+        }
+
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            width: fit-content;
+            max-width: 80%;
+        }
+
+        .message.user {
+            background: #e0ffe0;
+            align-self: flex-end;
+        }
+
+        .message.bot {
+            background: #f0f0f0;
+            align-self: flex-start;
+        }
+
+        .chat-window textarea {
+            width: calc(100% - 20px);
+            height: 100px;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+            transition: border-color 0.3s;
+        }
+
+        .chat-window textarea:focus {
+            border-color: #66ff66;
+            outline: none;
+        }
+
+        .chat-window button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #004d00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .chat-window button:hover {
+            background-color: #003300;
+            transform: scale(1.05);
+        }
+
+        .chat-window button:active {
+            transform: scale(1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-window">
+        <h1>Digite sua dúvida aqui</h1>
+        <p>O Bot irá te ajudar a usar o mensageiro de aniversário.</p>
+        <div class="chat-content" id="chat-content">
+            <!-- Mensagens serão inseridas aqui -->
+        </div>
+        <textarea id="user-input" placeholder="Digite sua pergunta aqui..." onkeydown="checkEnter(event)"></textarea>
+        <button onclick="sendMessage()">Enviar</button>
+    </div>
+
+    <script>
+        const responses = [
+            'Bem-vindo ao Bot! Estou aqui para ajudar você a usar o nosso mensageiro de aniversário. Se você tiver alguma dúvida, é só perguntar! 🎉🌴',
+            'Para calcular a idade de um hóspede, usamos a função `calculate_age`. Ela recebe a data de nascimento no formato "dd/mm/yyyy" e retorna a idade atual da pessoa.',
+            'O aplicativo lê os números de telefone dos hóspedes a partir de um arquivo Excel chamado "telefones.xlsx". Certifique-se de que este arquivo esteja no mesmo diretório que o aplicativo.',
+            'Para encontrar o número de telefone de um hóspede, usamos a função `find_phone_by_name`, que busca pelo nome do hóspede no arquivo Excel. Certifique-se de que o nome esteja corretamente escrito no arquivo.',
+            'Os aniversariantes do dia são extraídos de um arquivo PDF chamado "data.pdf". O aplicativo verifica a data de nascimento no PDF e compara com a data atual para identificar os aniversariantes.',
+            'O Bot envia mensagens de aniversário personalizadas via WhatsApp. As mensagens desejam felicidades ao hóspede pelo seu aniversário. As mensagens são enviadas automaticamente pelo aplicativo.',
+            'Ao clicar em "Começar envio", o aplicativo inicia o processo de leitura dos números de telefone e envio das mensagens de aniversário para os hóspedes que fazem aniversário hoje.',
+            'Pop-ups de ajuda são exibidos com um efeito de fade in quando você passa o mouse sobre certos elementos da interface, fornecendo informações adicionais.',
+            'Você pode enviar mensagens de aniversário individualmente para qualquer aniversariante. Basta clicar no aniversariante com o lado direito do mouse e selecionar "Envio individual". Você também pode usar o modo manual para isso.',
+            'Na tela principal, você verá uma lista de aniversariantes do dia. Você pode navegar pelas páginas de aniversariantes usando os botões de navegação. Se o número de telefone de algum hóspede estiver faltando, ele será destacado em vermelho.',
+            'A função `valida_cpf` verifica se um CPF é válido. O CPF deve estar no formato `xxx.xxx.xxx-xx`. Se o CPF não for válido, o aplicativo informará ao usuário.',
+            'A função `validate_telefone` verifica se um número de telefone está no formato correto: `+55 (xx) xxxxx-xxxx`. Certifique-se de inserir o telefone nesse formato.',
+            'A função `validate_data_nascimento` valida se a data de nascimento está no formato `dd/mm/yyyy` e verifica se é uma data válida. Certifique-se de inserir a data corretamente.',
+            'Você pode pesquisar hóspedes pelo nome, CPF, telefone ou data de nascimento. Use a função `search_guest` para abrir a janela de pesquisa e selecione o critério desejado.',
+            'O `modo manual` permite que você envie mensagens de aniversário individualmente para hóspedes. Insira o nome, telefone e idade do hóspede e clique em "Enviar" ou "Adicionar à lista".',
+            'Você pode adicionar hóspedes a uma lista de exceção para não enviar mensagens de aniversário. Clique em "Adicionar exceção", selecione os hóspedes desejados e clique em "Concluir". Ou clique com o lado direito em cima do nome do aniversariante e logo após com o lado direito em cima de "Adicionar hóspede a lista de exceção", para retirar todos os hóspedes da lista de exceção é só clicar no número de hóspedes na lista de exceção informado centro inferior da janela principal e confirmar.',
+            'Esse erro pode estar ocorrendo por diversos motivos, tenha certeza de que os arquivos "data.pdf", "telefones.xlsx" e "infos.xlsx" estão na mesma pasta que o Mensageiro clicando no atalho com o lado direito e selecionando "Abrir local do arquivo", caso não esteja, você pode digitar o nome do arquivo que está faltando aqui no chat que irei te ajudar.',
+            'Caso o arquivo "data.pdf" não se encontre na mesma pasta do Mensageiro, não há necessidade de se desesperar, você pode tentar busca-lo na lixeira, ou realizar uma pesquisa no disco local pelo arquivo, caso ainda assim não ache o mesmo, você deve abrir o NETHOTEL, ir na aba Cadastro>Hóspedes>Aperte "Enter" e então selecione as opções "PDF" e "Retrato", depois clique em "Imprimir", após isso, será aberto uma lista com informações, simplesmente aperte CTRL + P e salve como PDF com o nome "Data.pdf", agora é só copiar esse mesmo arquivo para a pasta do Mensageiro 😉',
+            'Caso o arquivo "Telefones.xlsx" não se encontre na pasta do Mensageiro, o programa irá exibir uma mensagem de erro e não irá funcionar da forma correta, por motivos óbvios, infelizmente, o arquivo "Telefones.xlsx" é um pouco mais difícil de se gerar do que as outras duas dependências "Data.pdf" e "Infos.xlsx", por isso recomendamos que seja feita uma conexão remota com o criador do software Lucas Siqueira : https://wa.link/pbtmrj',
+            'Para pesquisar o hóspede você pode usar a função "Pesquisar Hóspede" assim você pode saber quando é a data de aniversario daquele hóspede frequente no hotel e até mesmo adicionar uma notificação para o aniversario do mesmo clicando no nome dele com o lado direito do mouse e selecionando "Notificar-me"',
+            'O Mensageiro foi feito na intenção de aumentar as reservas no hotel e mostrar o quanto nos importamos com nosso hóspedes. O Mensageiro foi feito usando a linguagem Python, criado por Lucas Siqueira, que ainda não é um grande programador, então criou o programa, e teve ajuda de Inteligencias Artificiais para ajuda-lo a debugar seu código'
+            
+        ];
+
+        function getBotResponse(question) {
+            // Lógica simples para escolher uma resposta baseada na pergunta
+            if (question.includes("idade")) return responses[1];
+            if (question.includes("arquivo") || question.includes("Excel")) return responses[2];
+            if (question.includes("número")) return responses[3];
+            if (question.includes("aniversariante")) return responses[4];
+            if (question.includes("mensagem")) return responses[5];
+            if (question.includes("envio")) return responses[6];
+            if (question.includes("pop-up")) return responses[7];
+            if (question.includes("individual")) return responses[8];
+            if (question.includes("tela principal")) return responses[9];
+            if (question.includes("cpf")) return responses[10];
+            if (question.includes("validar telefone")) return responses[11];
+            if (question.includes("data de nascimento")) return responses[12];
+            if (question.includes("pesquisar hóspede")) return responses[13];
+            if (question.includes("modo manual")) return responses[14];
+            if (question.includes("exceção")) return responses[15];
+            if (question.includes("erro")) return responses[16];
+            if (question.includes("data.pdf")) return responses[17];
+            if (question.includes("telefones.xlsx")) return responses[18];
+            if (question.includes("pesquisa")) return responses[19];
+            if (question.includes("feito")) return responses[20];
+            return responses[0]; // Resposta padrão
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const chatContent = document.getElementById('chat-content');
+            const message = userInput.value.trim();
+
+            if (message) {
+                // Adiciona a mensagem do usuário
+                const userMessage = document.createElement('div');
+                userMessage.className = 'message user';
+                userMessage.innerText = message;
+                chatContent.appendChild(userMessage);
+
+                // Adiciona a resposta do bot
+                const botMessage = document.createElement('div');
+                botMessage.className = 'message bot';
+                botMessage.innerText = getBotResponse(message.toLowerCase());
+                chatContent.appendChild(botMessage);
+
+                // Limpa o campo de entrada do usuário
+                userInput.value = '';
+
+                // Faz o scroll para a última mensagem
+                chatContent.scrollTop = chatContent.scrollHeight;
+            }
+        }
+
+        function checkEnter(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+    </script>
+</body>
+</html>
