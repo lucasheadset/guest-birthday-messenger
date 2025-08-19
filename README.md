@@ -8,6 +8,15 @@ O Mensageiro de Aniversariante é uma aplicação de desktop desenvolvida em Pyt
 
 Inicialmente o projeto foi criado para atender um hotel no qual eu trabalhava, porém, após minha saída do mesmo, o projeto foi descontinuado e não há intenção de finalização.
 
+## ✨ Funcionalidades Principais
+
+* **Busca Automática:** Identifica os aniversariantes do dia a partir de uma base de dados.
+* **Interface Gráfica (GUI):** Desenvolvida com a biblioteca Tkinter, oferecendo uma experiência de usuário amigável e intuitiva.
+* **Envio em Segundo Plano:** O envio de mensagens em massa é executado em uma thread separada para não congelar a interface do programa.
+* **Busca Avançada:** Permite pesquisar hóspedes por Nome, CPF, Telefone ou Data de Nascimento, com um seletor de DDI internacional.
+* **Sistema de Ajuda:** Inclui um chatbot de ajuda desenvolvido com HTML, CSS e JavaScript para guiar o usuário.
+* **Gerenciamento de Exceções:** Permite adicionar hóspedes a uma lista para não receberem a mensagem.
+  
 ## 🔮 Próximos Passos e Melhorias Futuras
 
 Embora o projeto seja totalmente funcional em seu estado atual, algumas melhorias futuras poderiam ser implementadas para torná-lo ainda mais robusto:
@@ -17,16 +26,6 @@ Embora o projeto seja totalmente funcional em seu estado atual, algumas melhoria
 * **Integração com LLMs:** Conectar o chatbot de ajuda a uma API de um modelo de linguagem (como a do ChatGPT) para fornecer respostas mais dinâmicas e inteligentes.
 * **Notificações Avançadas:** Criar um sistema de notificações para avisar o usuário sobre a conclusão dos envios e possíveis falhas.
 * **Sistema de VIPs:** Finalizar a funcionalidade de "VIPs" para permitir o envio de mensagens diferenciadas para clientes recorrentes.
-  
-## ❌ Funcionalidades Não-Finalizadas
-
-* **Modo escuro:** Com a intenção de mudar o tema do app, função está atualmente bugada, causando erro gráfico na interface.
-* **Notificações** Apesar de haver notificações na abertura do app, inicialmente a ideia era que na versão final, também tivéssemos uma notificação quando finalizado o envio. Atualmente, tal função não está presente no projeto.
-* **Configurações no geral** Apesar da tela de configurações ser funcional, as configurações feitas nela não fazem efeito no programa em si.
-* **Iniciar envio por barra de tarefas** Apesar de haver a opção o programa só irá crashar.
-* **Modo VIP** Inicialmente com a intenção de ser uma forma de diferenciar hóspedes habitues, o mesmo não se encontra finalizado nessa versão.
-* **ChatBot** Apesar de funcional, seu uso é extremamente limitado, a intenção inicial era integra-lo com o ChatGPT
-* **Selenium** Por conta de regras do whatsapp e possibilidade de ban por spam, foi feita uma versão inicial com o Selenium em que fazia checagem se o número do whatsapp era válido e se havia foto de perfil, antes de realizar o envio da mensagem. Quando saí do hotel estava desenvolvendo essa versão, o que causou meu desinteresse em sua continuação.
  
 ## 🛠️ Tecnologias Utilizadas
 
