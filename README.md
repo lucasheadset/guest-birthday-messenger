@@ -1,6 +1,6 @@
 # 🚀 Guest Messenger // Mensageiro de Aniversariantes
 
-![Demonstração da Interface](https://imgur.com/a/95QtXLL)
+![Demonstração da Interface]((https://imgur.com/a/95QtXLL))
 
 ## 📄 Descrição
 
@@ -47,3 +47,4 @@ Inicialmente o projeto foi criado para atender um hotel no qual eu trabalhava, p
 * Manipulação e filtragem de dados de forma eficiente utilizando Pandas.
 * A importância de desacoplar a lógica da aplicação da sua fonte de dados.
 * Implementação de multithreading para executar tarefas longas sem impactar a experiência do usuário.
+
